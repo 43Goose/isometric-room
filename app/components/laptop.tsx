@@ -1,11 +1,13 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { GLTFResult } from '../types';
-import { Mesh, Object3D } from 'three';
+import { Object3D } from 'three';
+import { useGLTF } from '@react-three/drei';
 
-export default function Laptop({ info }: { info: GLTFResult }) {
+export default function Laptop() {
+    const laptop: GLTFResult = useGLTF('/Laptop.glb') as GLTFResult;
     const [power, setPower] = useState(false);
     const [target] = useState(() => new Object3D)
-    const { nodes, materials } = info;
+    const { nodes, materials } = laptop;
 
     const togglePower = () => {
         setPower(!power);

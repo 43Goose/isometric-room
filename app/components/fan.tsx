@@ -3,11 +3,13 @@ import { useFrame } from '@react-three/fiber';
 import React, { useRef, useState } from 'react'
 import { Group, Object3DEventMap } from 'three';
 import { GLTFResult } from '../types';
+import { useGLTF } from '@react-three/drei';
 
-export default function Fan({ info }: { info: GLTFResult }) {
+export default function Fan() {
+    const fan: GLTFResult = useGLTF('/Fan.glb') as GLTFResult;
     const [power, setPower] = useState(false);
     const fanRef = useRef<Group<Object3DEventMap>>(null);
-    const { nodes, materials } = info;
+    const { nodes, materials } = fan;
 
     useFrame(() => {
         if (power) {

@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
 import { GLTFResult } from '../types'
+import { useGLTF } from '@react-three/drei';
 
-export default function Lamp({ info }: { info: GLTFResult }) {
+export default function Lamp() {
+    const lamp: GLTFResult = useGLTF('/Lamp.glb') as GLTFResult;
+    const room: GLTFResult = useGLTF('/Room.glb') as GLTFResult;
     const [power, setPower] = useState(false);
-    const { nodes, materials } = info;
+    const { nodes, materials } = lamp;
 
     const togglePower = () => {
         setPower(!power);
@@ -21,7 +24,7 @@ export default function Lamp({ info }: { info: GLTFResult }) {
                 castShadow
                 receiveShadow
                 geometry={nodes.Cylinder001_1.geometry}
-                material={power ? materials['Light Gray'] : materials['Dark Gray']}
+                material={power ? room.materials['Light Gray'] : materials['Dark Gray']}
             />
             {power && <pointLight
                 position={[0, 15, 0]}
